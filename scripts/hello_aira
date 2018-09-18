@@ -9,5 +9,5 @@ def callback(msg):
 
 if __name__ == '__main__':
     rospy.init_node('hello_aira')
-    rospy.Subscriber('/lighthouse/infochan/incoming/ask', Ask, callback)
+    rospy.Subscriber('/liability/infochan/incoming/ask', Ask, callback)
     rospy.spin()
