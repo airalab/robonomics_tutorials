@@ -1,10 +1,9 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>arduino_blink</name>
+  <name>arduino_with_args</name>
   <version>0.0.0</version>
-  <description>The arduino_blink package</description>
-
-  <maintainer email="vadim.razorq@gmail.com">Vadim Manaenko</maintainer>
+  <description>The arduino_with_args package</description>
+  <maintainer email="vadim.razorq@gmail.com">Vadim Mananeko</maintainer>
 
   <license>BSD3</license>
 
@@ -12,5 +11,4 @@
   <build_depend>rospy</build_depend>
   <build_export_depend>rospy</build_export_depend>
   <exec_depend>rospy</exec_depend>
-
 </package>
