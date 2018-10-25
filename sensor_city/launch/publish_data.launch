@@ -1,0 +1,6 @@
+<launch>
+  <node name="worker" pkg="sensor_city" type="worker_node" output="screen">
+    <param name="model" value="QmdxFSEvfLxjwHypQvj9yEmwKugG2ZH1ZhJvGDhw18qAdU" />
+    <param name="token" value="0x98DFc5247da729c045D4938bABD081A61a455776" />
+  </node>
+</launch>
