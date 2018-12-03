@@ -12,7 +12,13 @@ Build
 -----
 
 ```
-mkdir -p ws/src && cd ws/src
-cp -r path/to/arduino_blink . 
-catkin_init_workspace && cd .. && catkin_make 
+$ nix build -f release.nix
+$ . result/setup.zsh
+```
+
+Run
+---
+
+```
+$ rosrun arduino_with_args blink.py
 ```

@@ -1,0 +1,9 @@
+export const NETWORK = 1
+export const VERSION = 3
+export const ENS = ''
+export const LIGHTHOUSE = 'airalab.lighthouse.3.robonomics.eth'
+export const MODEL = 'QmdVAKj4y91Q4ddMUf96AHonrTszMjKFoziZd7V5enonFh'
+export const OBJECTIVE = 'QmYYZWNd9esP3YBuuyUBVMH3ymaLDbQFB35S79duYiobcD'
+export const IPFS_PUBSUB = 'https://wss.pool.aira.life' // https://github.com/vol4tim/ipfs-api-pubsub-ws
+export const TOKEN = '0x98DFc5247da729c045D4938bABD081A61a455776'
+export const PRICE = 1

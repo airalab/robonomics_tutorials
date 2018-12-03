@@ -1,7 +1,9 @@
-Arduino Blink
-=============
+Arduino Blink Package
+=====================
 
-`misc/arduino.ino` - source code for Arduino board. Upload with IDE or command line.
+A package for [this](https://aira.readthedocs.io/en/latest/examples/connect_simple_cps.html) lesson
+
+`misc/arduino/arduino.ino` - source code for Arduino board. Upload with IDE or command line.
 
 `rosbag/blink.bag` - objective `QmYYZWNd9esP3YBuuyUBVMH3ymaLDbQFB35S79duYiobcD`
 
@@ -11,7 +13,13 @@ Build
 -----
 
 ```
-mkdir -p ws/src && cd ws/src
-cp -r path/to/arduino_blink . 
-catkin_init_workspace && cd .. && catkin_make 
+$ nix-build release.nix
+$ . result/setup.zsh
+```
+
+Run
+---
+
+```
+$ rosrun arduino_blink blink.py
 ```

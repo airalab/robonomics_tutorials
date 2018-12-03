@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>sensor_city</name>
+  <version>0.1.0</version>
+  <description>The sensor_city package</description>
+
+  <maintainer email="vadim.razorq@gmail.com">Vadim Manaenko</maintainer>
+  <license>BSD3</license>
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_export_depend>rospy</build_export_depend>
+  <build_export_depend>std_msgs</build_export_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+</package>
