@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>hello_aira</name>
-  <version>0.0.0</version>
+  <version>0.1.0</version>
   <description>Your first package using AIRA</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
@@ -52,7 +52,7 @@
   <build_depend>rospy</build_depend>
   <build_export_depend>rospy</build_export_depend>
   <exec_depend>rospy</exec_depend>
-  <exec_depend>robonomics_lighthouse</exec_depend>
+  <exec_depend>robonomics_msgs</exec_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->

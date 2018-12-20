@@ -4,7 +4,7 @@ project(hello_aira)
 find_package(catkin REQUIRED
     COMPONENTS
         rospy
-        robonomics_lighthouse
+        robonomics_msgs
 )
 
 catkin_python_setup()
