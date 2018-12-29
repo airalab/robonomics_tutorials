@@ -4,7 +4,7 @@ from robonomics_msgs.msg import Demand
 import rospy
 
 def callback(msg):
-    if msg.model == "QmVCPhLcGi7GussfhrCxhSb1H5FrNyrM9uR6HuLgqgwawB":
+    if msg.model.multihash == "QmVCPhLcGi7GussfhrCxhSb1H5FrNyrM9uR6HuLgqgwawB":
         rospy.loginfo("Hello AIRA")
 
 if __name__ == '__main__':
