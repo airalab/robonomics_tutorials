@@ -10,7 +10,7 @@
         <v-container fluid grid-list-md>
           <v-layout row wrap>
             <v-flex md12>
-              <web3-check :networks="[network]">
+              <web3-check :networks="network" @changeNetwork="onChangeNetwork" @changeAccount="onChangeAccount">
                 <router-view />
               </web3-check>
             </v-flex>
@@ -24,11 +24,25 @@
 <script>
 import * as config from './config'
 
+const network = Object.keys(config.ROBONOMICS).map((item) => {
+  return Number(item)
+})
+
 export default {
   name: 'App',
   data () {
     return {
-      network: config.NETWORK
+      network: network
+    }
+  },
+  methods: {
+    onChangeNetwork (data) {
+      if (data.check === true) {
+        window.location.reload(false)
+      }
+    },
+    onChangeAccount () {
+      window.location.reload(false)
     }
   }
 }

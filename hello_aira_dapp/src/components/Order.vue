@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container v-if="!robonomicsStatus" fluid fill-height class="ml-0 px-3">
+    <v-container v-if="!robonomicsStatus" fluid fill-height class="px-3">
       <v-layout
         justify-center
         align-center
@@ -12,12 +12,12 @@
       </v-layout>
     </v-container>
 
-    <v-container v-if="robonomicsStatus" grid-list-md class="ml-0 px-3">
+    <v-container v-if="robonomicsStatus" grid-list-md class="px-3">
       <v-layout row wrap>
         <v-flex md12>
           <v-card>
             <v-card-text>
-              <v-container grid-list-md class="ml-0 px-3">
+              <v-container grid-list-md class="px-3">
                 <v-layout row wrap>
                   <v-flex md12>
                     Lighthouse: <a :href="`https://etherscan.io/address/${lighthouse.address}`" target="blank">{{ lighthouse.name }}</a>
@@ -26,7 +26,7 @@
               </v-container>
               <v-divider />
 
-              <v-container grid-list-md class="ml-0 px-3">
+              <v-container grid-list-md class="px-3">
                 <v-layout row wrap>
                   <v-flex md12>
                     <div>
@@ -148,46 +148,49 @@ export default {
     }
   },
   created () {
-    robonomics = getRobonomics(config.LIGHTHOUSE)
-    robonomics.ready().then(() => {
-      let ready
-      if (config.TOKEN) {
-        this.token = new Token(robonomics.web3, config.TOKEN)
-        ready = this.token.call('decimals')
-          .then((decimals) => {
-            this.decimals = decimals
-            return this.token.call('symbol')
-          })
-          .then((symbol) => {
-            this.symbol = symbol
-            this.price.valueStr = `${formatDecimals(this.price.value, this.decimals)} ${this.symbol}`
-            return this.fetchData()
-          })
-      } else {
-        this.token = robonomics.xrt
-        ready = this.fetchData()
-      }
-      ready.then(() => {
-        this.robonomicsStatus = true
-        this.balance.address = this.token.address
-        this.lighthouse.name = robonomics.lighthouse.name
-        this.lighthouse.address = robonomics.lighthouse.address
-        this.account = robonomics.account
-
-        robonomics.getDemand(this.model, (msg) => {
-          this.demands = [{ ...msg }, ...this.demands.slice(0, 10)]
-        })
-        robonomics.getOffer(this.model, (msg) => {
-          this.offers = [{ ...msg }, ...this.offers.slice(0, 10)]
-        })
-        robonomics.getResult((msg) => {
-          console.log('result unverified', msg)
-          if (this.liability !== null && msg.liability === this.liability.address) {
-            this.setResult(msg.result, false)
+    getRobonomics()
+      .then((r) => {
+        robonomics = r
+        robonomics.ready().then(() => {
+          let ready
+          if (config.TOKEN) {
+            this.token = new Token(robonomics.web3, config.TOKEN)
+            ready = this.token.call('decimals')
+              .then((decimals) => {
+                this.decimals = decimals
+                return this.token.call('symbol')
+              })
+              .then((symbol) => {
+                this.symbol = symbol
+                this.price.valueStr = `${formatDecimals(this.price.value, this.decimals)} ${this.symbol}`
+                return this.fetchData()
+              })
+          } else {
+            this.token = robonomics.xrt
+            ready = this.fetchData()
           }
+          ready.then(() => {
+            this.robonomicsStatus = true
+            this.balance.address = this.token.address
+            this.lighthouse.name = robonomics.lighthouse.name
+            this.lighthouse.address = robonomics.lighthouse.address
+            this.account = robonomics.account
+
+            robonomics.getDemand(this.model, (msg) => {
+              this.demands = [{ ...msg }, ...this.demands.slice(0, 10)]
+            })
+            robonomics.getOffer(this.model, (msg) => {
+              this.offers = [{ ...msg }, ...this.offers.slice(0, 10)]
+            })
+            robonomics.getResult((msg) => {
+              console.log('result unverified', msg)
+              if (this.liability !== null && msg.liability === this.liability.address) {
+                this.setResult(msg.result, false)
+              }
+            })
+          })
         })
       })
-    })
   },
   methods: {
     fetchData () {
