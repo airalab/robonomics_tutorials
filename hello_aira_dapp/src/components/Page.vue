@@ -1,17 +1,20 @@
 <template>
   <div>
-    <h1 class="text-md-center">Hello AIRA</h1>
-    <Order />
+    <Hello />
+    <v-divider style="margin:20px 0;"/>
+    <Trade />
   </div>
 </template>
 
 <script>
-import Order from './Order'
+import Hello from './Hello'
+import Trade from './Trade'
 
 export default {
   name: 'Page',
   components: {
-    Order
+    Hello,
+    Trade
   }
 }
 </script>

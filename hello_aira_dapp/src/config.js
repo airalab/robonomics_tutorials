@@ -11,7 +11,8 @@ export const ROBONOMICS = {
     lighthouse: 'airalab.lighthouse.4.robonomics.sid'
   }
 }
-export const MODEL = 'QmVCPhLcGi7GussfhrCxhSb1H5FrNyrM9uR6HuLgqgwawB'
+export const MODEL_HELLO = 'QmVCPhLcGi7GussfhrCxhSb1H5FrNyrM9uR6HuLgqgwawB'
+export const MODEL_TRADE = 'QmUB6ajZTLLMZg7re1v4hw44aoG8HDQDHr9JyujU264Aw2'
 export const OBJECTIVE = 'QmbSW1E73DKUvGDrgx8GirEVfHJLvj8RBijtH9iEZ7UecU'
 export const IPFS_PUBSUB = 'https://wss.pool.aira.life' // https://github.com/vol4tim/ipfs-api-pubsub-ws
 export const TOKEN = null

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1 class="text-md-center">Hello AIRA</h1>
     <v-container v-if="!robonomicsStatus" fluid fill-height class="px-3">
       <v-layout
         justify-center
@@ -59,7 +60,7 @@ import * as config from '../config'
 let robonomics
 
 export default {
-  name: 'order',
+  name: 'hello',
   data () {
     return {
       token: null,
@@ -82,7 +83,7 @@ export default {
         value: 0,
         valueStr: '0 XRT'
       },
-      model: config.MODEL,
+      model: config.MODEL_HELLO,
       account: '',
       lighthouse: {
         name: '',
