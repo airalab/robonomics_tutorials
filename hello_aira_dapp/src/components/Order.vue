@@ -13,86 +13,35 @@
     </v-container>
 
     <v-container v-if="robonomicsStatus" grid-list-md class="px-3">
-      <v-layout row wrap>
-        <v-flex md12>
+      <v-layout justify-center row wrap>
+        <v-flex xs12 md6>
           <v-card>
             <v-card-text>
               <v-container grid-list-md class="px-3">
                 <v-layout row wrap>
-                  <v-flex md12>
+                  <v-flex md12 class="text-md-center">
                     Lighthouse: <a :href="`https://etherscan.io/address/${lighthouse.address}`" target="blank">{{ lighthouse.name }}</a>
+                    <v-btn
+                      v-if="approveTrade.value >= price.value"
+                      :loading="loadingOrder"
+                      :disabled="loadingOrder || balance.value < price.value"
+                      color="primary"
+                      @click.native="order"
+                    >
+                      Say hello to Aira
+                    </v-btn>
+
+                    <v-alert
+                      v-if="msg"
+                      :value="true"
+                      type="success"
+                    >
+                      {{msg}}
+                    </v-alert>
+
                   </v-flex>
                 </v-layout>
               </v-container>
-              <v-divider />
-
-              <v-container grid-list-md class="px-3">
-                <v-layout row wrap>
-                  <v-flex md12>
-                    <div>
-                      Cost: {{ price.valueStr }} |
-                      Balance: <a :href="`https://etherscan.io/token/${balance.address}?a=${account}`" target="blank">{{ balance.valueStr }}</a> |
-                      Approved: {{ approveTrade.valueStr }}
-                    </div>
-                  </v-flex>
-                </v-layout>
-              </v-container>
-
-              <v-btn
-                v-if="approveTrade.value < price.value"
-                :loading="loadingApprove"
-                :disabled="loadingApprove || balance.value < price.value"
-                color="primary"
-                @click.native="sendApproveTrade"
-              >
-                Approve
-              </v-btn>
-
-              <v-btn
-                v-if="approveTrade.value >= price.value"
-                :loading="loadingOrder"
-                :disabled="loadingOrder || balance.value < price.value"
-                color="primary"
-                @click.native="order"
-              >
-                Order
-              </v-btn>
-
-            </v-card-text>
-          </v-card>
-        </v-flex>
-
-        <v-flex md12>
-          <v-card v-if="liability">
-            <v-card-title primary-title>
-              <div>
-                <h3 class="headline mb-0">Result</h3>
-              </div>
-            </v-card-title>
-            <v-card-text>
-              <Liability :liability="liability" />
-            </v-card-text>
-          </v-card>
-        </v-flex>
-      </v-layout>
-
-      <v-layout row wrap>
-        <v-flex md12>
-          <v-card>
-            <v-card-title primary-title>
-              <div>
-                <h3 class="headline mb-0">Demands</h3>
-              </div>
-            </v-card-title>
-            <v-card-text>
-              <p class="t-break" v-for="(item, i) in demands" :key="i">
-                <b>account: </b>{{ item.account }}<br/>
-                <b>model: </b>{{ item.model }}<br/>
-                <b>objective: </b>{{ item.objective }}<br/>
-                <b>token: </b>{{ item.token }}<br/>
-                <b>cost: </b>{{ item.cost }}<br/>
-                <b>deadline: </b>{{ item.deadline }}
-              </p>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -105,16 +54,12 @@
 import { Token } from 'robonomics-js'
 import getRobonomics from '../utils/robonomics'
 import { formatDecimals, watchTx } from '../utils/utils'
-import Liability from './Liability'
 import * as config from '../config'
 
 let robonomics
 
 export default {
   name: 'order',
-  components: {
-    Liability
-  },
   data () {
     return {
       token: null,
@@ -123,6 +68,7 @@ export default {
       robonomicsStatus: false,
       loadingApprove: false,
       loadingOrder: false,
+      msg: '',
       price: {
         value: config.PRICE,
         valueStr: `${formatDecimals(config.PRICE, 9)} XRT`
@@ -252,6 +198,7 @@ export default {
         })
     },
     order () {
+      this.msg = ''
       this.liability = null
       this.loadingOrder = true
       web3.eth.getBlock('latest', (e, r) => {
@@ -264,10 +211,10 @@ export default {
           validatorFee: 0,
           deadline: r.number + 1000
         }
-        robonomics.postDemand(this.model, demand)
-          .then((liability) => this.newLiability(liability))
+        robonomics.post('demand', this.model, demand)
           .then(() => {
             this.loadingOrder = false
+            this.msg = 'Message sent, look in Aira console now'
           })
           .catch((e) => {
             this.loadingOrder = false
