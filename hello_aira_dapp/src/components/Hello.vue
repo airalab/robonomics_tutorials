@@ -95,7 +95,7 @@ export default {
       this.loadingOrder = true
       web3.eth.getBlock('latest', (e, r) => {
         const demand = {
-          objective: config.OBJECTIVE,
+          objective: config.OBJECTIVE_HELLO,
           token: this.token.address,
           cost: config.PRICE,
           lighthouse: robonomics.lighthouse.address,
