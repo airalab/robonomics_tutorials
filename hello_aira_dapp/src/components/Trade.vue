@@ -21,7 +21,7 @@
               <v-container grid-list-md class="px-3">
                 <v-layout row wrap>
                   <v-flex md12 class="text-xs-center">
-                    Lighthouse: <a :href="`https://etherscan.io/address/${lighthouse.address}`" target="blank">{{ lighthouse.name }}</a>
+                    Lighthouse: {{ lighthouse.name }}
                     <v-btn
                       :loading="loadingOrder"
                       :disabled="loadingOrder"
