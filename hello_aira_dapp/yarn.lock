@@ -1691,6 +1691,14 @@ buffer-xor@^1.0.3:
   resolved "https://registry.yarnpkg.com/buffer-xor/-/buffer-xor-1.0.3.tgz#26e61ed1422fb70dd42e6e36729ed51d855fe8d9"
   integrity sha1-JuYe0UIvtw3ULm42cp7VHYVf6Nk=
 
+buffer@5.0.5:
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/buffer/-/buffer-5.0.5.tgz#35c9393244a90aff83581063d16f0882cecc9418"
+  integrity sha1-Nck5MkSpCv+DWBBj0W8Igs7MlBg=
+  dependencies:
+    base64-js "^1.0.2"
+    ieee754 "^1.1.4"
+
 buffer@^4.3.0:
   version "4.9.1"
   resolved "https://registry.yarnpkg.com/buffer/-/buffer-4.9.1.tgz#6d1bb601b07a4efced97094132093027c95bc298"
@@ -2985,7 +2993,7 @@ error-stack-parser@^2.0.0:
   dependencies:
     stackframe "^1.0.4"
 
-es-abstract@^1.5.1, es-abstract@^1.7.0:
+es-abstract@^1.5.1:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/es-abstract/-/es-abstract-1.12.0.tgz#9dbbdd27c6856f0001421ca18782d786bf8a6165"
   integrity sha512-C8Fx/0jFmV5IPoMOFPA9P9G5NtqW+4cOPit3MIuvR2t7Ag2K15EJTpxnHAYTzL+aYQJIESYeXZmDBfOBE1HcpA==
@@ -2996,7 +3004,19 @@ es-abstract@^1.5.1, es-abstract@^1.7.0:
     is-callable "^1.1.3"
     is-regex "^1.0.4"
 
-es-to-primitive@^1.1.1:
+es-abstract@^1.7.0:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/es-abstract/-/es-abstract-1.13.0.tgz#ac86145fdd5099d8dd49558ccba2eaf9b88e24e9"
+  integrity sha512-vDZfg/ykNxQVwup/8E1BZhVzFfBxs9NqMzGcvIJrqg5k2/5Za2bWo40dK2J1pgLngZ7c+Shh8lwYtLGyrwPutg==
+  dependencies:
+    es-to-primitive "^1.2.0"
+    function-bind "^1.1.1"
+    has "^1.0.3"
+    is-callable "^1.1.4"
+    is-regex "^1.0.4"
+    object-keys "^1.0.12"
+
+es-to-primitive@^1.1.1, es-to-primitive@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/es-to-primitive/-/es-to-primitive-1.2.0.tgz#edf72478033456e8dda8ef09e00ad9650707f377"
   integrity sha512-qZryBOJjV//LaxLTV6UC//WewneB3LcXOL9NP++ozKVXsIIIpm/2c13UDiD9Jp2eThsecw9m3jPqDwTyobcdbg==
@@ -4158,7 +4178,7 @@ has-values@^1.0.0:
     is-number "^3.0.0"
     kind-of "^4.0.0"
 
-has@^1.0.1:
+has@^1.0.1, has@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/has/-/has-1.0.3.tgz#722d7cbfc1f6aa8241f16dd814e011e1f41e8796"
   integrity sha512-f2dvO0VU6Oej7RkWJGrehjbzMAjFp5/VKPp5tTpWIV4JHHZK1/BxbFRtf/siA2SWTe09caDmVtYYzWEIbBS4zw==
@@ -4198,6 +4218,11 @@ he@1.2.x, he@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
+
+heap@0.2.6:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/heap/-/heap-0.2.6.tgz#087e1f10b046932fc8594dd9e6d378afc9d1e5ac"
+  integrity sha1-CH4fELBGky/IWU3Z5tN4r8nR5aw=
 
 hmac-drbg@^1.0.0:
   version "1.0.1"
@@ -4500,6 +4525,11 @@ inquirer@^3.0.6:
     string-width "^2.1.0"
     strip-ansi "^4.0.0"
     through "^2.3.6"
+
+int53@0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/int53/-/int53-0.2.4.tgz#5ed8d7aad6c5c6567cae69aa7ffc4a109ee80f86"
+  integrity sha1-XtjXqtbFxlZ8rmmqf/xKEJ7oD4Y=
 
 internal-ip@1.2.0:
   version "1.2.0"
@@ -7884,6 +7914,15 @@ robonomics-js@^0.4.1:
     web3-eth-abi "1.0.0-beta.36"
     web3-utils "1.0.0-beta.36"
 
+rosbag@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/rosbag/-/rosbag-1.1.0.tgz#dda3010ef8d79e37dc75f8cfd4a23f6f4cd28f2c"
+  integrity sha512-FW9hehvC/YOuK5/QCQ7Tf1mPUBrRFPz1EGW4cb43syyG80F8aivgBBUWKUuj8OrHPa9RqH73hbGcnZUaVZwRlQ==
+  dependencies:
+    buffer "5.0.5"
+    heap "0.2.6"
+    int53 "0.2.4"
+
 rsvp@^3.3.3:
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-3.6.2.tgz#2e96491599a96cde1b515d5674a8f7a91452926a"
@@ -9301,7 +9340,7 @@ webpack-dev-middleware@1.12.2:
     range-parser "^1.0.3"
     time-stamp "^2.0.0"
 
-webpack-dev-server@^2.9.1:
+webpack-dev-server@2.11.3:
   version "2.11.3"
   resolved "https://registry.yarnpkg.com/webpack-dev-server/-/webpack-dev-server-2.11.3.tgz#3fd48a402164a6569d94d3d17f131432631b4873"
   integrity sha512-Qz22YEFhWx+M2vvJ+rQppRv39JA0h5NNbOOdODApdX6iZ52Diz7vTPXjF7kJlfn+Uc24Qr48I3SZ9yncQwRycg==
