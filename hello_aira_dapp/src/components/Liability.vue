@@ -13,6 +13,10 @@
       <b>Results: </b><a :href="`https://ipfs.io/ipfs/${liability.result}`" target="_blank">{{ liability.result }}</a>
       <v-icon v-if="liability.check === true" large color="green darken-2">mdi-check</v-icon>
       <v-icon v-if="liability.check === false" large color="blue-grey darken-2">mdi-alert-circle-outline</v-icon>
+      <br/>
+      <span v-for="(res, resIndex) in liability.resultMessage" :key="resIndex">
+        {{ res }}<br />
+      </span>
     </span>
     <span v-if="liability.result == ''">
       <b>Results: </b><v-progress-linear :indeterminate="true"></v-progress-linear>

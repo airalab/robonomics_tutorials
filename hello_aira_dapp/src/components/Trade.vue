@@ -81,6 +81,7 @@
 <script>
 import { Token } from 'robonomics-js'
 import getRobonomics from '../utils/robonomics'
+import ipfsBagCat from '../utils/ipfs'
 import Liability from './Liability'
 import * as config from '../config'
 
@@ -139,6 +140,12 @@ export default {
         result,
         check
       }
+      if (this.liability.resultMessage.length === 0) {
+        this.liability.resultMessage.push('')
+        ipfsBagCat(result, {}, (bag) => {
+          this.liability.resultMessage.push(bag.data)
+        })
+      }
     },
     newLiability (liability) {
       console.log('liability demand', liability.address)
@@ -147,7 +154,8 @@ export default {
           this.liability = {
             address: liability.address,
             worker: liability.worker,
-            ...info
+            ...info,
+            resultMessage: []
           }
           liability.watchResult((result) => {
             console.log('result', result)
