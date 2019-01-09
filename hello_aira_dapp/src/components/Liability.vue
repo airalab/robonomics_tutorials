@@ -1,16 +1,16 @@
 <template>
   <div>
-    <a :href="`https://etherscan.io/address/${liability.address}`" target="_blank">{{ liability.address }}</a><br/>
-    <b>lighthouse: </b><a :href="`https://etherscan.io/address/${liability.lighthouse}`" target="_blank">{{ liability.lighthouse }}</a><br/>
-    <b>worker: </b><a :href="`https://etherscan.io/address/${liability.worker}`" target="_blank">{{ liability.worker }}</a><br/>
+    <b>Liability smart contract: </b>{{ liability.address }}<br/>
+    <b>lighthouse: </b>{{ liability.lighthouse }}<br/>
+    <b>provider: </b>{{ liability.worker }}<br/>
     <b>model: </b>{{ liability.model }}<br/>
     <b>objective: </b>{{ liability.objective }}<br/>
     <b>token: </b>{{ liability.token }}<br/>
-    <b>cost: </b>{{ liability.cost }}<br/>
-    <b>promisee: </b>{{ liability.promisee }}<br/>
-    <b>promisor: </b>{{ liability.promisor }}<br/>
+    <b>price: </b>{{ liability.cost }}<br/>
+    <b>user address: </b>{{ liability.promisee }}<br/>
+    <b>Aira: </b>{{ liability.promisor }}<br/>
     <span v-if="liability.result != ''">
-      <b>Results: </b><a :href="`https://ipfs.io/ipfs/${liability.result}`" target="_blank">{{ liability.result }}</a>
+      <b>Results: </b>{{ liability.result }}
       <v-icon v-if="liability.check === true" large color="green darken-2">mdi-check</v-icon>
       <v-icon v-if="liability.check === false" large color="blue-grey darken-2">mdi-alert-circle-outline</v-icon>
       <br/>
