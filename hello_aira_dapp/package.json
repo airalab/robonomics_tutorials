@@ -14,9 +14,10 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.4.4",
     "axios": "^0.18.0",
     "bluebird": "^3.5.3",
-    "robonomics-js": "^0.4.1",
+    "robonomics-js": "^0.5.0",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vue-web3-check": "^1.2.0",

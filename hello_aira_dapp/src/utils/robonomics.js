@@ -10,14 +10,18 @@ const getRobonomics = () => {
         if (!ROBONOMICS.hasOwnProperty(Number(r))) {
           return reject(new Error('No support network'))
         }
-        const socket = io(IPFS_PUBSUB)
         robonomics = new Robonomics({
           web3,
-          provider: new Provider(socket),
-          ens: ROBONOMICS[Number(r)].ens,
-          ensSuffix: ROBONOMICS[Number(r)].ensSuffix,
-          lighthouse: ROBONOMICS[Number(r)].lighthouse,
-          version: VERSION
+          account: {
+            address: web3.eth.accounts[0]
+          },
+          ens: {
+            address: ROBONOMICS[Number(r)].ens,
+            suffix: ROBONOMICS[Number(r)].ensSuffix,
+            version: VERSION
+          },
+          messageProvider: new Provider(io(IPFS_PUBSUB)),
+          lighthouse: ROBONOMICS[Number(r)].lighthouse
         })
         resolve(robonomics)
       })

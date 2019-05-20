@@ -1,14 +1,14 @@
-export const VERSION = 4
+export const VERSION = 5
 export const ROBONOMICS = {
   1: {
     ens: '',
     ensSuffix: '',
-    lighthouse: 'airalab.lighthouse.4.robonomics.eth'
+    lighthouse: 'airalab.lighthouse.5.robonomics.eth'
   },
-  355: {
-    ens: '0x4e978ed8a05b516d8130ff7df54fbc8b7ceb6442',
+  4451: {
+    ens: '0xaC4Ac4801b50b74aa3222B5Ba282FF54407B3941',
     ensSuffix: 'sid',
-    lighthouse: 'airalab.lighthouse.4.robonomics.sid'
+    lighthouse: 'airalab.lighthouse.5.robonomics.sid'
   }
 }
 export const MODEL = 'QmVCPhLcGi7GussfhrCxhSb1H5FrNyrM9uR6HuLgqgwawB'

@@ -9,7 +9,7 @@ export default class Provider extends MessageProviderAbstract {
   }
 
   ready () {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       this.socket.on('reconnect', () => {
         if (this.topic !== null) {
           this.watch(this.topic[0], this.topic[1])
@@ -21,17 +21,17 @@ export default class Provider extends MessageProviderAbstract {
     })
   }
 
-  push (topic, msg) {
-    return new Promise((resolve) => {
+  send (topic, msg) {
+    return new Promise(resolve => {
       this.socket.emit(topic, JSON.stringify(msg))
       resolve()
     })
   }
 
-  watch (topic, cb) {
+  on (topic, cb) {
     this.topic = [topic, cb]
     this.socket.emit('chanel', topic)
-    this.socket.on(topic, (msg) => {
+    this.socket.on(topic, msg => {
       cb(msg)
     })
   }
