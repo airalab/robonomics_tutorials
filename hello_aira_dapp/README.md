@@ -1,20 +1,39 @@
-# hello_aira_dapp
+# Build Setup
 
-> A Vue.js project
+## Project setup
 
-## Build Setup
+```
+yarn install
+```
 
-``` bash
-# install dependencies
-npm install
+### Compiles and hot-reloads for development
 
-# serve with hot reload at localhost:8080
-npm run dev
+```
+yarn run serve
+```
 
-# build for production with minification
-npm run build
+### Compiles and minifies for production
+
+```
+yarn run build
+```
+
+### Run your tests
+
+```
+yarn run test
+```
+
+### Lints and fixes files
+
+```
+yarn run lint
 ```
 
 ## Change configuration file
 
 > src/config.js
+
+### Customize configuration
+
+See [Configuration Reference](https://cli.vuejs.org/config/).

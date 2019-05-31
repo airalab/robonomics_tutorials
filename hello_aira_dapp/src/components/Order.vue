@@ -114,24 +114,24 @@
 </template>
 
 <script>
-import { Token } from 'robonomics-js'
-import getRobonomics from '../utils/robonomics'
-import { formatDecimals } from '../utils/utils'
-import Liability from './Liability'
-import * as config from '../config'
+import { Token } from "robonomics-js";
+import getRobonomics from "../utils/robonomics";
+import { formatDecimals } from "../utils/utils";
+import Liability from "./Liability";
+import * as config from "../config";
 
-let robonomics
+let robonomics;
 
 export default {
-  name: 'order',
+  name: "order",
   components: {
     Liability
   },
-  data () {
+  data() {
     return {
       token: null,
       decimals: 9,
-      symbol: 'XRT',
+      symbol: "XRT",
       robonomicsStatus: false,
       loadingApprove: false,
       loadingOrder: false,
@@ -140,127 +140,125 @@ export default {
         valueStr: `${formatDecimals(config.PRICE, 9)} XRT`
       },
       balance: {
-        address: '',
+        address: "",
         value: 0,
-        valueStr: '0 XRT'
+        valueStr: "0 XRT"
       },
       approveTrade: {
         value: 0,
-        valueStr: '0 XRT'
+        valueStr: "0 XRT"
       },
       model: config.MODEL,
-      account: '',
+      account: "",
       lighthouse: {
-        name: '',
-        address: ''
+        name: "",
+        address: ""
       },
       liability: null,
       demands: [],
       offers: []
-    }
+    };
   },
-  created () {
-    getRobonomics().then(r => {
-      robonomics = r
-      robonomics.ready().then(() => {
-        let ready
-        if (config.TOKEN) {
-          this.token = new Token(robonomics.web3, config.TOKEN)
-          ready = this.token.call
-            .decimals()
-            .then(decimals => {
-              this.decimals = decimals
-              return this.token.call.symbol()
-            })
-            .then(symbol => {
-              this.symbol = symbol
-              this.price.valueStr = `${formatDecimals(
-                this.price.value,
-                this.decimals
-              )} ${this.symbol}`
-              return this.fetchData()
-            })
-        } else {
-          this.token = robonomics.xrt
-          ready = this.fetchData()
-        }
-        ready.then(() => {
-          this.robonomicsStatus = true
-          this.balance.address = this.token.address
-          this.lighthouse.name = robonomics.lighthouse.name
-          this.lighthouse.address = robonomics.lighthouse.address
-          this.account = robonomics.account.address
+  created() {
+    robonomics = getRobonomics();
+    robonomics.ready().then(() => {
+      let ready;
+      if (config.TOKEN) {
+        this.token = new Token(robonomics.web3, config.TOKEN);
+        ready = this.token.call
+          .decimals()
+          .then(decimals => {
+            this.decimals = decimals;
+            return this.token.call.symbol();
+          })
+          .then(symbol => {
+            this.symbol = symbol;
+            this.price.valueStr = `${formatDecimals(
+              this.price.value,
+              this.decimals
+            )} ${this.symbol}`;
+            return this.fetchData();
+          });
+      } else {
+        this.token = robonomics.xrt;
+        ready = this.fetchData();
+      }
+      ready.then(() => {
+        this.robonomicsStatus = true;
+        this.balance.address = this.token.address;
+        this.lighthouse.name = robonomics.lighthouse.name;
+        this.lighthouse.address = robonomics.lighthouse.address;
+        this.account = robonomics.account.address;
 
-          robonomics.onDemand(this.model, msg => {
-            this.demands = [{ ...msg }, ...this.demands.slice(0, 10)]
-          })
-          robonomics.onOffer(this.model, msg => {
-            this.offers = [{ ...msg }, ...this.offers.slice(0, 10)]
-          })
-          robonomics.onResult(msg => {
-            console.log('result unverified', msg)
-            if (
-              this.liability !== null &&
-              msg.liability === this.liability.address
-            ) {
-              this.setResult(msg.result, false)
-            }
-          })
-        })
-      })
-    })
+        robonomics.onDemand(this.model, msg => {
+          this.demands = [{ ...msg }, ...this.demands.slice(0, 10)];
+        });
+        robonomics.onOffer(this.model, msg => {
+          this.offers = [{ ...msg }, ...this.offers.slice(0, 10)];
+        });
+        robonomics.onResult(msg => {
+          console.log("result unverified", msg);
+          if (
+            this.liability !== null &&
+            msg.liability === this.liability.address
+          ) {
+            this.setResult(msg.result, false);
+          }
+        });
+      });
+    });
   },
   methods: {
-    fetchData () {
+    fetchData() {
       return this.token.call
         .balanceOf(robonomics.account.address)
         .then(balanceOf => {
-          this.balance.value = balanceOf
+          this.balance.value = balanceOf;
           this.balance.valueStr = `${formatDecimals(
             balanceOf,
             this.decimals
-          )} ${this.symbol}`
+          )} ${this.symbol}`;
           if (balanceOf > 0) {
             return this.token.call.allowance(
               robonomics.account.address,
               robonomics.factory.address
-            )
+            );
           }
-          return false
+          return false;
         })
         .then(allowance => {
           if (allowance) {
-            this.approveTrade.value = allowance
+            this.approveTrade.value = allowance;
             this.approveTrade.valueStr = `${formatDecimals(
               allowance,
               this.decimals
-            )} ${this.symbol}`
+            )} ${this.symbol}`;
           }
-        })
+        });
     },
-    sendApproveTrade () {
-      this.loadingApprove = true
+    sendApproveTrade() {
+      this.loadingApprove = true;
       return this.token.send
         .approve(robonomics.factory.address, this.price.value * 100, {
           from: robonomics.account.address
         })
         .then(() => {
-          this.loadingApprove = false
-          return this.fetchData()
+          this.loadingApprove = false;
+          return this.fetchData();
         })
         .catch(() => {
-          this.loadingApprove = false
-        })
+          this.loadingApprove = false;
+        });
     },
-    setResult (result, check = true) {
+    setResult(result, check = true) {
       this.liability = {
         ...this.liability,
         result,
         check
-      }
+      };
     },
-    newLiability (liability) {
-      console.log('liability demand', liability.address)
+    newLiability(liability) {
+      console.log("liability demand", liability.address);
       return liability
         .getInfo()
         .then(info => {
@@ -268,45 +266,45 @@ export default {
             address: liability.address,
             worker: liability.worker,
             ...info
-          }
+          };
           liability.onResult().then(result => {
-            console.log('result', result)
-            this.setResult(result, true)
-          })
-          return true
+            console.log("result", result);
+            this.setResult(result, true);
+          });
+          return true;
         })
         .catch(e => {
-          console.log(e)
+          console.log(e);
           setTimeout(() => {
-            this.newLiability(liability)
-          }, 2000)
-        })
+            this.newLiability(liability);
+          }, 2000);
+        });
     },
-    order () {
-      this.liability = null
-      this.loadingOrder = true
-      web3.eth.getBlock('latest', (e, r) => {
+    order() {
+      this.liability = null;
+      this.loadingOrder = true;
+      web3.eth.getBlock("latest", (e, r) => {
         const demand = {
           model: this.model,
           objective: config.OBJECTIVE,
           token: this.token.address,
           cost: this.price.value,
           lighthouse: robonomics.lighthouse.address,
-          validator: '0x0000000000000000000000000000000000000000',
+          validator: "0x0000000000000000000000000000000000000000",
           validatorFee: 0,
           deadline: r.number + 1000
-        }
+        };
         robonomics
           .sendDemand(demand)
           .then(liability => this.newLiability(liability))
           .then(() => {
-            this.loadingOrder = false
+            this.loadingOrder = false;
           })
-          .catch(e => {
-            this.loadingOrder = false
-          })
-      })
+          .catch(() => {
+            this.loadingOrder = false;
+          });
+      });
     }
   }
-}
+};
 </script>

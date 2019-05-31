@@ -1,24 +1,37 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import '@babel/polyfill'
-import Vue from 'vue'
-import Vuetify from 'vuetify'
-import App from './App'
-import router from './router'
-import * as Web3Check from 'vue-web3-check'
+import '@babel/polyfill';
+import Vue from 'vue';
+import Vuetify from 'vuetify';
+import Web3Check, { ACTIONS } from 'vue-web3-check';
+import App from './App';
+import router from './router';
+import * as config from './config';
 
-import 'vuetify/dist/vuetify.min.css'
+import 'vuetify/dist/vuetify.min.css';
 
-Vue.config.productionTip = false
-Vue.use(Vuetify)
-Vue.use(Web3Check)
+Vue.config.productionTip = false;
+Vue.use(Vuetify);
 
-/* eslint-disable no-new */
+Web3Check.store.on('update', data => {
+  if (
+    (data.state.old.account !== null && data.action === ACTIONS.UPD_ACCOUNT) ||
+    (data.state.old.networkId !== null &&
+      data.action === ACTIONS.UPD_NETWORK_ID)
+  ) {
+    window.location.reload(false);
+  }
+});
+const network = Object.keys(config.ROBONOMICS).map(item => {
+  return Number(item);
+});
+Vue.use(Web3Check, {
+  Web3,
+  networks: network,
+  requireAccount: true
+});
+
 new Vue({
-  el: '#app',
   router,
-  components: {
-    App
-  },
-  template: '<App/>'
-})
+  render: h => h(App)
+}).$mount('#app');
